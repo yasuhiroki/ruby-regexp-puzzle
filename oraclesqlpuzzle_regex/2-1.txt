@@ -1,0 +1,7 @@
+abcdefg
+acbdefg
+ab
+bc
+cdxxabxxbc
+abc
+xxabcdefgxx
