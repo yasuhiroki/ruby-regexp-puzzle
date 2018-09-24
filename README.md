@@ -46,7 +46,11 @@ TBD
 ## 実装
 
 [鬼雲](https://github.com/k-takata/Onigmo/)
+[onibi](https://github.com/namusyaka/onibi)
+[build-your-own-regex](https://github.com/nadrane/build-your-own-regex)
 
 ## MISC
 
 [鬼雲に非包含オペレータを実装した話](https://qiita.com/k-takata/items/4e45121081c83d3d5bfd)
+[正規表現エンジンを作ろう](https://codezine.jp/article/corner/237)
+[40行以内で正規表現エンジンを構築](https://postd.cc/build-your-own-regex/)
