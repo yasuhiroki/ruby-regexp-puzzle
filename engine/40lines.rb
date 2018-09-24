@@ -5,5 +5,6 @@ end
 
 def match(pattern, text)
   return true if pattern.empty?
+  return true if pattern == '$' && text.empty?
   match_one(pattern[0], text[0]) && match(pattern[1..-1], text[1..-1])
 end

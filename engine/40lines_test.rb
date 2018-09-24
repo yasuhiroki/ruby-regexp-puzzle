@@ -17,5 +17,9 @@ class TestSample < Test::Unit::TestCase
     assert_equal false, match('a', 'b')
     assert_equal false, match('abc', 'adc')
     assert_equal false, match('a.c', 'abb')
+
+    assert_equal true, match('abc$', 'abc')
+    assert_equal true, match('a.c$', 'abc')
+    assert_equal false, match('abc$', 'abcc')
   end
 end
