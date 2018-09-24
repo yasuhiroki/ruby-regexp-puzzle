@@ -13,14 +13,16 @@ def match(pattern, text)
 end
 
 def match_question(pattern, text)
-  match(pattern[2..-1], text) || (match_one(pattern[0], text[0]) && match(pattern[2..-1], text[1..-1]))
+  match(pattern[2..-1], text) ||
+    (match_one(pattern[0], text[0]) && match(pattern[2..-1], text[1..-1]))
 end
 
 def match_star(pattern, text)
-  match(pattern[2..-1], text) || (match_one(pattern[0], text[0]) && match(pattern, text[1..-1]))
+  match(pattern[2..-1], text) ||
+    (match_one(pattern[0], text[0]) && match(pattern, text[1..-1]))
 end
 
 def search(pattern, text)
   return match(pattern[1..-1], text) if pattern[0] == '^'
-  text.each_char.with_index.any? { |_, i| match(pattern, text[i..-1]) }
+  match(".*#{pattern}", text)
 end
