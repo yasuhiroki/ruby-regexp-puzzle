@@ -40,5 +40,10 @@ class TestSample < Test::Unit::TestCase
     assert_equal true, search('abc$', 'aabc')
     assert_equal true, search('abc', 'aabc')
     assert_equal false, search('abc', 'aabbc')
+
+    assert_equal true, search('a*bc', 'abc')
+    assert_equal true, search('a*bc', 'aaabc')
+    assert_equal true, search('a*abc', 'abc')
+    assert_equal false, search('ab*c', 'aa')
   end
 end
