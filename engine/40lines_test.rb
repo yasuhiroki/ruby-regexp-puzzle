@@ -23,6 +23,13 @@ class TestSample < Test::Unit::TestCase
     assert_equal false, match('abc$', 'abcc')
   end
 
+  def test_match_question
+    assert_equal true, match('c?', 'abc')
+    assert_equal true, match('c?', 'ab')
+    assert_equal true, match('ac?b', 'abcc')
+    assert_equal false, match('a?bbc', 'abcc')
+  end
+
   def test_search
     assert_equal true, search('^abc', 'abc')
     assert_equal true, search('^a.c', 'abc')
