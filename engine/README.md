@@ -11,6 +11,6 @@
 ## 40lines.rb
 
 [build-your-own-regex](https://github.com/nadrane/build-your-own-regex) を参考に実装したもの。  
-実装者本人の解説は https://nickdrane.com/build-your-own-regex/
-その日本語訳 https://postd.cc/build-your-own-regex/
+実装者本人の解説は https://nickdrane.com/build-your-own-regex/  
+その日本語訳は https://postd.cc/build-your-own-regex/
 
