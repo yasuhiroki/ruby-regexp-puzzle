@@ -41,14 +41,53 @@ TBD
 
 ## 正規表現メモ
 
-### `\k<name>`
+### `*?`
 
-部分式呼び出し。  
-グループの式そのものを呼び出す。
+最短一致
 
 ```ruby
-"hogehogehoge".match?(/(hoge)\k<1>\k<1>/)
-#=> true
+# /.*/` だと最長一致を取る
+"<title>Ebisu.rb#18</title>".match(/<.*>/)
+#=> #<MatchData "<title>Ebisu.rb#18</title>">
+
+# /.*?/` だと最短一致になる
+"<title>Ebisu.rb#18</title>".match(/<.*?>/)
+#=> #<MatchData "<title>">
+
+# 良く見る最短一致の書き方
+"<title>Ebisu.rb#18</title>".match(/<[^>]+>/)
+#=> #<MatchData "<title>">
+```
+
+### `\g<name>`
+
+部分式呼び出し  
+グループの式そのものを呼び出す
+
+```ruby
+"hogehogehoge".match(/(hoge)\g<1>\g<1>/)
+#=> #<MatchData "hogehogehoge" 1:"hoge">
+
+"hogefugahoge".match(/(hoge)\g<1>\g<1>/)
+#=> nil
+```
+
+後方参照とは違う  
+後方参照はマッチした文字列を呼び出す  
+部分式呼び出しはグループの正規表現式そのものを呼び出す  
+
+```ruby
+# /.パジャマ/ に3連続でマッチするかどうか
+"赤パジャマ青パジャマ黃パジャマ".match(/(.パジャマ)\g<1>\g<1>/)
+=> #<MatchData "赤パジャマ青パジャマ黃パジャマ" 1:"黃パジャマ">
+
+# .パジャマでマッチした文字(赤パジャマ or 青パジャマ or 黃パジャマ) に3連続でマッチするかどうか
+"赤パジャマ青パジャマ黃パジャマ".match(/(.パジャマ)\k<1>\k<1>/)
+#=> nil
+
+# 青パジャマが3連続でマッチするのでOK
+"赤パジャマ青パジャマ青パジャマ青パジャマ黃パジャマ".match(/(.パジャマ)\k<1>\k<1>/)
+#=> #<MatchData "青パジャマ青パジャマ青パジャマ" 1:"青パジャマ">
 ```
 
 ### 先読み後読み
@@ -72,6 +111,49 @@ TBD
 #=> nil
 ```
 
+### Character Property
+
+カタカナだけ抜き出す
+
+```ruby
+"みんチャレ".match(/\p{Katakana}+/)
+=> #<MatchData "チャレ">
+```
+
+絵文字を取得
+
+```ruby
+"ぐー👊ぱんち".match(/\p{Emoji}/)
+#=> #<MatchData "👊">
+```
+
+Skinが設定された絵文字を取得
+ここで肌の色を変えた 👊🏼 にすると
+
+```ruby
+# skin(🏼) が剥がれてしまう
+"ぐー👊🏼ぱんち".match(/\p{Emoji}/)
+=> #<MatchData "👊">
+
+# skinも一緒にマッチせればOK
+"ぐー👊🏼ぱんち".match(/\p{Emoji}\p{Emoji_Modifier}/)
+#=> #<MatchData "👊🏼">
+```
+
+`(´°̥̥̥ω°̥̥̥｀)` の涙にマッチ
+
+```ruby
+"(´°̥̥̥ω°̥̥̥｀)".match(/\p{Combining_Mark}/)
+#=> #<MatchData "̥">
+```
+
+`(´°̥̥̥ω°̥̥̥｀)` の涙を拭い去る
+
+```ruby
+"(´°̥̥̥ω°̥̥̥｀)".gsub(/\p{Combining_Mark}/, '')
+=> "(´°ω°｀)"
+```
+
 # 参考
 
 ## ドキュメント
@@ -79,6 +161,10 @@ TBD
 - [正規表現](https://docs.ruby-lang.org/ja/latest/doc/spec=2fregexp.html)
 - [Regexpクラス](https://docs.ruby-lang.org/ja/latest/class/Regexp.html)
 - [%記法](https://docs.ruby-lang.org/ja/latest/doc/spec=2fliteral.html#percent)
+
+### Unicode
+
+- [Emoji Properties](http://unicode.org/reports/tr51/#Emoji_Properties)
 
 ## 実装
 
