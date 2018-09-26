@@ -65,10 +65,10 @@ TBD
 グループの式そのものを呼び出す
 
 ```ruby
-"hogehogehoge".match(/(hoge)\g<1>\g<1>/)
-#=> #<MatchData "hogehogehoge" 1:"hoge">
+"走れメロス怒れメロス甦れメロス".match(/^(.れメロス)\g<1>\g<1>$/)
+#=> #<MatchData "走れメロス怒れメロス甦れメロス" 1:"甦れメロス">
 
-"hogefugahoge".match(/(hoge)\g<1>\g<1>/)
+"走れメロス戦えメロス甦れメロス".match(/^(.れメロス)\g<1>\g<1>$/)
 #=> nil
 ```
 
@@ -223,6 +223,7 @@ Skinが設定された絵文字を取得
 
 ## MISC
 
+- [正規表現メモ](http://www.kt.rim.or.jp/~kbk/regex/regex.html)
 - [鬼雲に非包含オペレータを実装した話](https://qiita.com/k-takata/items/4e45121081c83d3d5bfd)
 - [正規表現エンジンを作ろう](https://codezine.jp/article/corner/237)
 - [40行以内で正規表現エンジンを構築](https://postd.cc/build-your-own-regex/)
